@@ -1,9 +1,18 @@
 # JBoss/Wildfly Deployment Hands-on Demo
 
+
+본 실습에 상용되는 소프트웨어 버전입니다.
+- [docker](https://docs.docker.com/get-docker/) v19.03.13
+- [docker-compose](https://docs.docker.com/compose) v1.27.4
+- [openjdk 8](https://hub.docker.com/_/openjdk) docker 이미지
+- [mariadb 10](https://hub.docker.com/_/mariadb) docker 이미지
+- [jboss eap 7](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/) 패키지
+- [wildfly 18.0.1](https://www.wildfly.org/downloads/) 패키지 *Optional
+
+## 사전 설치 
+
 > 본 실습은 docker 환경으로 구성되어 있습니다. 인터넷이 가능한 환경과 docker가 설치된 실습환경이 필요합니다.
 > docker 실습 환경은 [docker](https://docs.docker.com/get-docker/)에서 확인하여 사전에 설치합니다.
-
-
 
 - [x] 리눅스 환경에서는 docker-compose 가 설치되어 있지 않습니다. 추가 설치가 필요합니다. [docker-compose](https://docs.docker.com/compose/install/) 보기
 ```bash
@@ -91,5 +100,11 @@ docker run -v "${PWD}:/usr/app/myapp" -v "${PWD}/m2/:/root/.m2/" -w /usr/app/mya
 docker 실행시 자동으로 설정된 데이터베이스, 사용자 정보, 스키마 및 데이터를 생성합니다.
 
 - [x] [jpetstore mysql schema](https://raw.githubusercontent.com/nationminu/jboss-demo/master/database/init/1.%20jpetstore-mysql-schema.sql) 다운로드
-- [x] [jpetstore mysql data](https://github.com/nationminu/jboss-demo/blob/master/database/init/2.%20jpetstore-mysql-dataload.sql) 다운로드
+```bash
+wget https://raw.githubusercontent.com/nationminu/jboss-demo/master/database/init/1.%20jpetstore-mysql-schema.sql
+```
+- [x] [jpetstore mysql data](https://raw.githubusercontent.com/nationminu/jboss-demo/master/database/init/2.%20jpetstore-mysql-dataload.sql) 다운로드
+```bash
+wget https://raw.githubusercontent.com/nationminu/jboss-demo/master/database/init/2.%20jpetstore-mysql-dataload.sql
+```
 - [x] 프로젝트 내 "./database/init" 디렉토리에 아래에 스키마 파일 과 데이터 파일을 복사 
