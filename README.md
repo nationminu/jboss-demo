@@ -1,7 +1,7 @@
 # JBoss/Wildfly Deployment Hands-on Demo
 
 
-본 실습에 상용되는 소프트웨어 버전입니다.
+본 실습에 사용되는 소프트웨어 버전입니다.
 - [docker](https://docs.docker.com/get-docker/) v19.03.13
 - [docker-compose](https://docs.docker.com/compose) v1.27.4
 - [openjdk 8](https://hub.docker.com/_/openjdk) docker 이미지
@@ -9,12 +9,21 @@
 - [jboss eap 7](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/) 패키지
 - [wildfly 18.0.1](https://www.wildfly.org/downloads/) 패키지 *Optional
 
+<br/><br/>
+
 ## 사전 설치 
 
-> 본 실습은 docker 환경으로 구성되어 있습니다. 인터넷이 가능한 환경과 docker가 설치된 실습환경이 필요합니다.
-> docker 실습 환경은 [docker](https://docs.docker.com/get-docker/)에서 확인하여 사전에 설치합니다.
+> 본 실습은 docker 환경으로 구성되어 있습니다. 인터넷이 가능한 환경과 docker가 설치된 실습환경이 필요합니다. <br/>
+> docker 실습 환경은 [docker](https://docs.docker.com/get-docker/)에서 확인하여 사전에 설치합니다. 
+> 윈도우와 맥은 docker desktop 으로 설치합니다. 리눅스는 배포판에 맞는 명령어로 설치합니다. <br/> 
+또한 리눅스 환경에서는 docker-compose 가 설치되어 있지 않습니다. 추가 설치가 필요합니다. 
 
-- [x] 리눅스 환경에서는 docker-compose 가 설치되어 있지 않습니다. 추가 설치가 필요합니다. [docker-compose](https://docs.docker.com/compose/install/) 보기
+- [x] [docker](https://docs.docker.com/get-docker/) 설치하기
+
+![docker-desktop](./img/docker-desktop.png)
+
+- [x] [docker-compose](https://docs.docker.com/compose/install/) 설치하기
+
 ```bash
 sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -28,6 +37,7 @@ JBoss Docker 이미지를 생성하기 위해 [openjdk 8](https://hub.docker.com
 docker 의 기본 사용 방법은 [docker 따라하기](https://github.com/nationminu/docker-starter/blob/master/STARTER.md)를 참조하시기 바랍니다. 
 
 ### Dockerfile 만들기
+---
 로컬에 Docker 이미지를 만들기 위해 Dockerfile 을 생성합니다.
 - [x] dockerhub 에서 베이스이미지 "openjdk 8" 을 다운로드 합니다. 명령어로는 docker pull openjdk:8 로 사용할 수 있습니다.
 ```
@@ -101,6 +111,7 @@ EXPOSE 9990
  
 ENTRYPOINT [ "./bin/standalone.sh"]
 ```
+---
 
 ## 2. JBoss 관리콘솔 접속하기 
 ```

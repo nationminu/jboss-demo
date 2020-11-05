@@ -10,7 +10,7 @@
         <security-realms>
             <security-realm name="ManagementRealm">
                 <server-identities>
-                    <secret value="cnBsaW51eA==" />
+                    <secret value="YWRtaW4=" />
                 </server-identities>
                 <authentication>
                     <local default-user="$local" skip-group-loading="true"/>

@@ -1,30 +1,34 @@
 FROM openjdk:8
 #--------------------------------------------------------------------------#
 #--------------------------------------------------------------------------#
-#                      W I L D F L Y  v18.0.1  I M A G E                   #
+#                      J B O S S E A P  v7.3.0  I M A G E                  #
 #--------------------------------------------------------------------------#
 #--------------------------------------------------------------------------#   
 LABEL maintainer="mwsong@rockplace.co.kr"
 
-ENV JBOSS_HOME=/usr/local/wildfly-18.0.1.Final
+ENV JBOSS_HOME=/usr/local/jboss-eap-7.3
 ENV JBOSS_MODULEPATH=${JBOSS_HOME}/modules:/app/modules.ext/
 
-ADD https://download.jboss.org/wildfly/18.0.1.Final/wildfly-18.0.1.Final.zip /usr/local
+COPY jboss-eap-7.3.0.zip /usr/local/
 
-RUN cd /usr/local && unzip wildfly-18.0.1.Final.zip && rm -f wildfly-18.0.1.Final.zip
-RUN cd ${JBOSS_HOME}/bin && ./add-user.sh admin rplinux 
- 
+RUN cd /usr/local && unzip jboss-eap-7.3.0.zip && rm -f jboss-eap-7.3.0.zip
+RUN cd ${JBOSS_HOME}/bin && ./add-user.sh admin admin 
+
 RUN mkdir -p /app
-ADD session.war /app/session.war 
-ADD jpetstore.war /app/jpetstore.war 
-ADD jpetstore-jdbc.war /app/jpetstore-jdbc.war
-ADD modules.ext /app/modules.ext
-ADD wildfly/*.xml ${JBOSS_HOME}/domain/configuration/
+COPY session.war /app/session.war 
+COPY jpetstore.war /app/jpetstore.war 
+COPY jpetstore-jdbc.war /app/jpetstore-jdbc.war
+COPY modules.ext /app/modules.ext
+COPY eap/*.xml /usr/local/jboss-eap-7.3/domain/configuration/
+COPY entrypoint.sh ${JBOSS_HOME}
+
+RUN chmod +x ${JBOSS_HOME}/entrypoint.sh 
  
 WORKDIR $JBOSS_HOME
 
 EXPOSE 8080
 EXPOSE 8009
 EXPOSE 9990
-  
-CMD [ "/usr/local/wildfly-18.0.1.Final/bin/standalone.sh"]
+ 
+#CMD ["./bin/standalone.sh"]
+ENTRYPOINT ["./entrypoint.sh"] 

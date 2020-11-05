@@ -9,23 +9,26 @@ LABEL maintainer="mwsong@rockplace.co.kr"
 ENV JBOSS_HOME=/usr/local/jboss-eap-7.3
 ENV JBOSS_MODULEPATH=${JBOSS_HOME}/modules:/app/modules.ext/
 
-ADD jboss-eap-7.3.0.zip /usr/local/
+COPY jboss-eap-7.3.0.zip /usr/local/
+
 RUN cd /usr/local && unzip jboss-eap-7.3.0.zip && rm -f jboss-eap-7.3.0.zip
-RUN cd ${JBOSS_HOME}/bin && ./add-user.sh admin rplinux 
+RUN cd ${JBOSS_HOME}/bin && ./add-user.sh admin admin 
 
 RUN mkdir -p /app
-ADD session.war /app/session.war 
-ADD jpetstore.war /app/jpetstore.war 
-ADD jpetstore-jdbc.war /app/jpetstore-jdbc.war
-ADD modules.ext /app/modules.ext
-ADD eap/*.xml /usr/local/jboss-eap-7.3/domain/configuration/
+COPY session.war /app/session.war 
+COPY jpetstore.war /app/jpetstore.war 
+COPY jpetstore-jdbc.war /app/jpetstore-jdbc.war
+COPY modules.ext /app/modules.ext
+COPY eap/*.xml /usr/local/jboss-eap-7.3/domain/configuration/
+COPY entrypoint.sh ${JBOSS_HOME}
+
+RUN chmod +x ${JBOSS_HOME}/entrypoint.sh 
  
 WORKDIR $JBOSS_HOME
 
 EXPOSE 8080
 EXPOSE 8009
 EXPOSE 9990
- 
-#ENTRYPOINT [ "/usr/local/jboss-eap-7.3/bin/standalone.sh" , "-b", "0.0.0.0" ,"-bmanagement","0.0.0.0"]
-#ENTRYPOINT [ "/usr/local/jboss-eap-7.3/bin/standalone.sh"]
-CMD [ "/usr/local/jboss-eap-7.3/bin/standalone.sh"]
+
+#CMD ["./bin/standalone.sh"]
+ENTRYPOINT ["./entrypoint.sh"] 
