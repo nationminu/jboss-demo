@@ -20,7 +20,7 @@
 
 - [x] [docker](https://docs.docker.com/get-docker/) 설치하기
 
-![docker-desktop](./img/docker-desktop.png)
+![docker-desktop](./images/docker-desktop.png)
 
 - [x] [docker-compose](https://docs.docker.com/compose/install/) 설치하기
 
