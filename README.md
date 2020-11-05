@@ -17,5 +17,5 @@
 > [도커 사용방법](https://github.com/nationminu/docker-starter/blob/master/STARTER.md) 
 
 * [도커에 JBoss/Wildfly 설치하기](01.Install.md)
-* [JBoss 데이터소스 설정/연결 방법](02.Datasources.md) 
+* [JBoss 데이터소스 설정/연결 방법](02.Datasource.md) 
 * [JBoss 어플리케이션 배포 방법](03.Deployment.md)  
