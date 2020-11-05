@@ -1,0 +1,101 @@
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"read-resource", "include-runtime":"true" , "recursive":"true", "address":["subsystem","datasources"], "json.pretty":1}'
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"read-resource", "include-runtime":"true" , "recursive":"true", "address":["subsystem","datasources","data-source","ExampleDS"], "json.pretty":1}'
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"test-connection-in-pool", "address":["subsystem","datasources","data-source","ExampleDS"], "json.pretty":1}'  
+
+
+https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html/configuration_guide/jboss_eap_management#management_apis
+
+curl -u admin --digest -D - http://localhost:9990/management/subsystem/undertow/server/default-server/http-listener/default 
+curl -u admin -s --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"read-resource", "address":["subsystem","undertow","server","default-server","http-listener","default"], "json.pretty":1}'  
+
+
+Standalone Mode Deployment
+
+어플리케이션 배포
+# managed 
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "composite", "address" : [], "steps" : [{"operation" : "add", "address" : {"deployment" : "jpetstore.war"}, "content" : [{"url" : "file:/app/jpetstore.war"}]},{"operation" : "deploy", "address" : {"deployment" : "jpetstore.war"}}],"json.pretty":1}'
+
+# unmanaged
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "composite", "address" : [], "steps" : [{"operation" : "add", "address" : {"deployment" : "jpetstore.war"}, "content" : [{"path" : "/app/jpetstore-jdbc.war","archive" : "false"}]},{"operation" : "deploy", "address" : {"deployment" : "jpetstore.war"}}],"json.pretty":1}'
+
+# undeploy
+curl -u admin:rplinux  --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "composite", "address" : [], "steps" : [{"operation" : "undeploy", "address" : {"deployment" : "jpetstore.war"}},{"operation" : "remove", "address" : {"deployment" : "jpetstore.war"}}],"json.pretty":1}'
+
+
+Datasource 추가
+
+1. JDBC driver 추가
+# CLI 사용
+/subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=org.mariadb,driver-xa-datasource-class-name=org.mariadb.jdbc.MySQLDataSource, driver-class-name=org.mariadb.jdbc.Driver)
+
+# API 사용
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"add", "address":["subsystem","datasources","jdbc-driver","mariadb"], "driver-name" : "mariadb" , "driver-module-name":"org.mariadb","driver-xa-datasource-class-name":"org.mariadb.jdbc.MySQLDataSource"," driver-class-name":"org.mariadb.jdbc.Driver" , "json.pretty":1}'  
+
+
+2. Datasource 추가
+# CLI 사용
+data-source add --name=MariaDBDS --jndi-name=java:jboss/MariaDBDS --driver-name=mariadb --connection-url=jdbc:mariadb://database:3306/jbossdb --user-name=jboss --password=jboss --validate-on-match=true --background-validation=false --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
+
+# API 사용
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"add", "address":["subsystem","datasources","data-source","MariaDBDS"], "jndi-name" : "java:jboss/MariaDBDS" , "driver-name":"mariadb" ,"connection-url" : "jdbc:mariadb://database:3306/jbossdb" , "user-name" : "jboss" , "password" : "jboss" , "validate-on-match" : "true", "background-validation": "false" , "valid-connection-checker-class-name":"org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker" , "exception-sorter-class-name" : "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter" , "json.pretty":1}'  
+
+3. Datasource 연결 확인
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"test-connection-in-pool", "address":["subsystem","datasources","data-source","MariaDBDS"], "json.pretty":1}'  
+
+
+Domain Mode Deploynment
+
+1. Add the deployment to the content repository. 
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management  --header "Content-Type: application/json" -d  '{"operation" : "add", "address" : {"deployment" : "session.war"}, "content" : [{"path" : "/app/session.war","archive" : "true"}],"json.pretty":1}'
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management  --header "Content-Type: application/json" -d  '{"operation" : "add", "address" : {"deployment" : "jpetstore.war"}, "content" : [{"path" : "/app/jpetstore-jdbc.war","archive" : "true"}],"json.pretty":1}'
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management  --header "Content-Type: application/json" -d  '{"operation" : "add", "address" : {"deployment" : "petstore.war"}, "content" : [{"path" : "/app/jpetstore.war","archive" : "false"}],"json.pretty":1}'
+
+2. Add the deployment to the desired server group.
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "add", "address" : {"server-group" : "main-server-group","deployment":"session.war"},"json.pretty":1}'
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "add", "address" : {"server-group" : "other-server-group","deployment":"jpetstore.war"},"json.pretty":1}'
+
+3. Deploy the application to the server group
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "deploy", "address" : {"server-group" : "main-server-group","deployment":"session.war"},"json.pretty":1}'
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "deploy", "address" : {"server-group" : "other-server-group","deployment":"jpetstore.war"},"json.pretty":1}'
+
+# undeploy
+1. Remove the deployment from all server groups to which it is assigned.
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "remove", "address" : {"server-group" : "main-server-group","deployment":"session.war"},"json.pretty":1}'
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "remove", "address" : {"server-group" : "other-server-group","deployment":"jpetstore.war"},"json.pretty":1}'
+
+2. Remove the deployment from the content repository.
+curl -u admin:rplinux --digest -L -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation" : "remove", "address" : {"deployment" : "jpetstore.war"}, "json.pretty":1}'
+
+
+Datasource 추가
+
+1. JDBC driver 추가
+# CLI 사용
+/profile=default/subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=org.mariadb,driver-xa-datasource-class-name=org.mariadb.jdbc.MySQLDataSource, driver-class-name=org.mariadb.jdbc.Driver)
+/profile=ha/subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=org.mariadb,driver-xa-datasource-class-name=org.mariadb.jdbc.MySQLDataSource, driver-class-name=org.mariadb.jdbc.Driver)
+
+# API 사용
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"add", "address":["profile","default","subsystem","datasources","jdbc-driver","mariadb"], "driver-name" : "mariadb" , "driver-module-name":"org.mariadb","driver-xa-datasource-class-name":"org.mariadb.jdbc.MySQLDataSource"," driver-class-name":"org.mariadb.jdbc.Driver" , "json.pretty":1}'  
+
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"add", "address":["profile","ha","subsystem","datasources","jdbc-driver","mariadb"], "driver-name" : "mariadb" , "driver-module-name":"org.mariadb","driver-xa-datasource-class-name":"org.mariadb.jdbc.MySQLDataSource"," driver-class-name":"org.mariadb.jdbc.Driver" , "json.pretty":1}'  
+
+
+2. Datasource 추가
+# CLI 사용
+data-source add --profile=default --name=MariaDBDS --jndi-name=java:jboss/MariaDBDS --driver-name=mariadb --connection-url=jdbc:mariadb://database:3306/jbossdb --user-name=jboss --password=jboss --validate-on-match=true --background-validation=false --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
+
+data-source add --profile=ha --name=MariaDBDS --jndi-name=java:jboss/MariaDBDS --driver-name=mariadb --connection-url=jdbc:mariadb://database:3306/jbossdb --user-name=jboss --password=jboss --validate-on-match=true --background-validation=false --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
+
+# API 사용
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"add", "address":["profile","default","subsystem","datasources","data-source","MariaDBDS"], "jndi-name" : "java:jboss/MariaDBDS" , "driver-name":"mariadb" ,"connection-url" : "jdbc:mariadb://database:3306/jbossdb" , "user-name" : "jboss" , "password" : "jboss" , "validate-on-match" : "true", "background-validation": "false" , "valid-connection-checker-class-name":"org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker" , "exception-sorter-class-name" : "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter" , "json.pretty":1}'  
+ 
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"add", "address":["profile","ha","subsystem","datasources","data-source","MariaDBDS"], "jndi-name" : "java:jboss/MariaDBDS" , "driver-name":"mariadb" ,"connection-url" : "jdbc:mariadb://database:3306/jbossdb" , "user-name" : "jboss" , "password" : "jboss" , "validate-on-match" : "true", "background-validation": "false" , "valid-connection-checker-class-name":"org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker" , "exception-sorter-class-name" : "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter" , "json.pretty":1}'  
+
+
+
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"start-servers", "address":["server-group","other-server-group"], "json.pretty":1}'   
+curl -u admin:rplinux --digest -D - http://localhost:9990/management --header "Content-Type: application/json" -d '{"operation":"stop-servers", "address":["server-group","other-server-group"], "json.pretty":1}'  
+
+
+docker-compose exec database mysql -uroot -p -e "set global general_log=1"
+

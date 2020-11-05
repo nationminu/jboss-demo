@@ -24,8 +24,82 @@ docker-compose version 1.27.4, build 1110ad01
 ```  
 
 ## 1. JBoss 설치
-```
+JBoss Docker 이미지를 생성하기 위해 [openjdk 8](https://hub.docker.com/_/openjdk) 버전의 docker 베이스 이미지를 사용합니다.
+docker 의 기본 사용 방법은 [docker 따라하기](https://github.com/nationminu/docker-starter/blob/master/STARTER.md)를 참조하시기 바랍니다. 
 
+### Dockerfile 만들기
+로컬에 Docker 이미지를 만들기 위해 Dockerfile 을 생성합니다.
+- [x] dockerhub 에서 베이스이미지 "openjdk 8" 을 다운로드 합니다. 명령어로는 docker pull openjdk:8 로 사용할 수 있습니다.
+```
+FROM openjdk:8
+```
+- [x] JBOSS 디렉토리 경로와 추가 모듈 경로를 컨테이너 환경설정에 등록합니다.
+```
+ENV JBOSS_HOME=/usr/local/jboss-eap-7.3
+ENV JBOSS_MODULEPATH=${JBOSS_HOME}/modules:/app/modules.ext/
+```
+- [x] 다운로드 받은 JBoss 패키지를 컨터이너 내부로 복사합니다. COPY 커맨드도 사용 가능합니다. ADD 는 원격에 있는 파일도 복사할수 있습니다.(ex> ADD https://download.jboss.org/wildfly/18.0.1.Final/wildfly-18.0.1.Final.zip /usr/local)
+```
+ADD jboss-eap-7.3.0.zip /usr/local/
+```
+- [x] 복사한 JBoss 패키지의 압축을 해제하고 기동에 필요한 환경설정을 진행합니다.
+1. JBoss 관리자 추가
+2. 샘플 어플리케이션 및 mariadb 모듈 복사
+3. domain 모드를 활성화 하기 위한 설정 복사
+```
+RUN cd /usr/local && unzip jboss-eap-7.3.0.zip && rm -f jboss-eap-7.3.0.zip
+RUN cd ${JBOSS_HOME}/bin && ./add-user.sh admin admin 
+
+RUN mkdir -p /app
+COPY session.war /app/session.war 
+COPY jpetstore.war /app/jpetstore.war 
+COPY jpetstore-jdbc.war /app/jpetstore-jdbc.war
+COPY modules.ext /app/modules.ext
+COPY eap/*.xml /usr/local/jboss-eap-7.3/domain/configuration/
+```
+- [x] docker 컨테이너 내부의 작업디렉터리를 하고, 컨테이너 기동시 활성화할 포트를 설정합니다.
+```
+WORKDIR $JBOSS_HOME
+
+EXPOSE 8080
+EXPOSE 8009
+EXPOSE 9990
+```
+- [x] docker 컨테이너 실행시 명령어를 설정합니다.
+```
+ENTRYPOINT [ "./bin/standalone.sh"]
+```
+- Dockerfile
+```
+FROM openjdk:8
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#                      J B O S S E A P  v7.3.0  I M A G E                  #
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#   
+LABEL maintainer="mwsong@rockplace.co.kr"
+
+ENV JBOSS_HOME=/usr/local/jboss-eap-7.3
+ENV JBOSS_MODULEPATH=${JBOSS_HOME}/modules:/app/modules.ext/
+
+ADD jboss-eap-7.3.0.zip /usr/local/
+RUN cd /usr/local && unzip jboss-eap-7.3.0.zip && rm -f jboss-eap-7.3.0.zip
+RUN cd ${JBOSS_HOME}/bin && ./add-user.sh admin rplinux 
+
+RUN mkdir -p /app
+ADD session.war /app/session.war 
+ADD jpetstore.war /app/jpetstore.war 
+ADD jpetstore-jdbc.war /app/jpetstore-jdbc.war
+ADD modules.ext /app/modules.ext
+ADD eap/*.xml /usr/local/jboss-eap-7.3/domain/configuration/
+ 
+WORKDIR $JBOSS_HOME
+
+EXPOSE 8080
+EXPOSE 8009
+EXPOSE 9990
+ 
+ENTRYPOINT [ "./bin/standalone.sh"]
 ```
 
 ## 2. JBoss 관리콘솔 접속하기 
