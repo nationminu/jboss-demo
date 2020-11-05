@@ -6,6 +6,8 @@ FROM openjdk:8
 #--------------------------------------------------------------------------#   
 LABEL maintainer="mwsong@rockplace.co.kr"
 
+RUN apt -y update && apt -y install vim
+
 ENV JBOSS_HOME=/usr/local/wildfly-18.0.1.Final
 ENV JBOSS_MODULEPATH=${JBOSS_HOME}/modules:/app/modules.ext/
 

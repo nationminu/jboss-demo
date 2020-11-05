@@ -6,6 +6,8 @@ FROM openjdk:8
 #--------------------------------------------------------------------------#   
 LABEL maintainer="mwsong@rockplace.co.kr"
 
+RUN apt -y update && apt -y install vim
+
 ENV JBOSS_HOME=/usr/local/jboss-eap-7.3
 ENV JBOSS_MODULEPATH=${JBOSS_HOME}/modules:/app/modules.ext/
 
