@@ -31,6 +31,20 @@
    2. [CLI 를 이용한 Datasoruce 등록](./02.Datasource.md#22-cli-를-이용한-datasoruce-등록)
    3. [HTTP management API 를 이용한 Datasoruce 등록](./02.Datasource.md#23-http-management-api-를-이용한-datasoruce-등록)
    4. [XML 을 이용한 Datasoruce 등록](./02.Datasource.md#24-xml-을-이용한-datasoruce-등록)
-   
+---   
 * [JBoss 어플리케이션 배포 방법](03.Deployment.md)
+---
+1. [docker-compose 설정 하기](./03.Deployment.md#1-docker-compose-설정-하기)
+   1. [docker-compose.yaml 스크립트 작성](./03.Deployment.md#11-docker-composeyaml-스크립트-작성)
+   2. [docker-compose 실행하기](./03.Deployment.md#12-docker-compose-실행하기) 
+   3. [docker-compose 상태 확인](./03.Deployment.md#13-docker-compose-상태-확인) 
+2. [샘플 어플리케이션 배포하기](./03.Deployment.md#2-샘플-어플리케이션-배포하기)
+   2. [GUI 를 이용한 배포](./03.Deployment.md#22-gui-를-이용한-배포)
+   3. [CLI 를 이용한 배포](./03.Deployment.md#23-cli-를-이용한-배포)
+   4. [HTTP management API 를 이용한 배포](./03.Deployment.md#24-http-management-api-를-이용한-배포)
+   5. [XML 을 이용한 배포](./03.Deployment.md#25-xml-을-이용한-배포)
+3. [스프링 프래임워크 디비 연결하기](./03.Deployment.md#3-스프링-프래임워크-디비-연결하기)
+   1. [스프링 프레임워크(Jpetstore) 디비 연결 설정하기](./03.Deployment.md#31-스프링-프레임워크jpetstore-디비-연결-설정하기)
+   2. [스프링 프레임워크(Jpetstore) 배포](./03.Deployment.md#32-스프링-프레임워크jpetstore-배포)
+   3. [스프링 프레임워크(Jpetstore) 테스트](./03.Deployment.md#32-스프링-프레임워크jpetstore-테스트)
 ---
