@@ -27,7 +27,7 @@ services:
 #--------------------------------------------------------------------------#
     # master:
     #     build: ./build
-    #     #image: "local/jboss-eap:7.3"
+    #     image: "local/jboss-eap:7.3"
     #     #image: "local/wildfly:18.0.1"
     #     ports:
     #         - "8080:8080"
@@ -39,7 +39,7 @@ services:
 
     # slave:
     #     build: ./build
-    #     #image: "local/jboss-eap:7.3"
+    #     image: "local/jboss-eap:7.3"
     #     #image: "local/wildfly:18.0.1"
     #     ports:
     #         - "18080:8080"
@@ -63,5 +63,4 @@ services:
             MYSQL_PASSWORD: jboss
         volumes:
             - ./database/data:/var/lib/mysql:rw 
-            - ./database/init:/docker-entrypoint-initdb.d:rw 
-            - ./database/log:/var/log/mysq:rw
+            - ./database/init:/docker-entrypoint-initdb.d:rw
