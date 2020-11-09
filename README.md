@@ -56,7 +56,7 @@ curl -u admin:admin --digest -D - http://localhost:9990/management
    2. [docker-compose 실행하기](./03.Deployment.md#12-docker-compose-실행하기) 
    3. [docker-compose 상태 확인](./03.Deployment.md#13-docker-compose-상태-확인) 
 2. [샘플 어플리케이션 배포하기](./03.Deployment.md#2-샘플-어플리케이션-배포하기)
-   1. [Deployment Scanner 를 이용한 배포](./03.Deployment.md)
+   1. [Deployment Scanner 를 이용한 배포](./03.Deployment.md#21-deployment-scanner-를-이용한-배포)
    2. [GUI 를 이용한 배포](./03.Deployment.md#22-gui-를-이용한-배포)
    3. [CLI 를 이용한 배포](./03.Deployment.md#23-cli-를-이용한-배포)
    4. [HTTP management API 를 이용한 배포](./03.Deployment.md#24-http-management-api-를-이용한-배포)
