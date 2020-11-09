@@ -19,12 +19,10 @@ docker-compose up --build
 
 curl -u admin:admin --digest -D - http://localhost:9990/management
 ```
+ 
+## Hands on 데모/실습 목차
 
-## Hands on 
-
-## 데모/실습 목차
-
-### [도커에 JBoss/Wildfly 설치하기](01.Install.md) 
+#### 1. [도커에 JBoss/Wildfly 설치하기](01.Install.md) 
 1. [사전설치](./01.Install.md#1-사전-설치)
    1. [docker 설치](./01.Install.md#11-docker-설치)
    2. [docker-compose 설치](./01.Install.md#12-docker-compose-설치) 
@@ -35,7 +33,7 @@ curl -u admin:admin --digest -D - http://localhost:9990/management
    4. [docker 컨테이너 사용법](./01.Install.md#23-docker-컨테이너-기동하기)
 ---
 
-### [JBoss 데이터소스 설정/연결 방법](02.Datasource.md)  
+#### 2. [JBoss 데이터소스 설정/연결 방법](02.Datasource.md)  
 1. [JDBC 모듈 생성/로딩하기](./02.Datasource.md#1-jdbc-모둘-등록하기)
    1. [GUI를 이용한 JDBC 모듈로딩](./02.Datasource.md#11-gui-를-이용한-jdbc-모듈-로딩)
    2. [CLI을 이용한 JDBC 모듈 로딩](./02.Datasource.md#12-cli을-이용한-jdbc-모듈-로딩)
@@ -48,7 +46,7 @@ curl -u admin:admin --digest -D - http://localhost:9990/management
    4. [XML 을 이용한 Datasoruce 등록](./02.Datasource.md#24-xml-을-이용한-datasoruce-등록)
 ---   
 
-### [JBoss 어플리케이션 배포 방법](03.Deployment.md)  
+#### 3. [JBoss 어플리케이션 배포 방법](03.Deployment.md)  
 1. [docker-compose 설정 하기](./03.Deployment.md#1-docker-compose-설정-하기)
    1. [docker-compose.yaml 스크립트 작성](./03.Deployment.md#11-docker-composeyaml-스크립트-작성)
    2. [docker-compose 실행하기](./03.Deployment.md#12-docker-compose-실행하기) 
