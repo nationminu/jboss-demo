@@ -12,12 +12,33 @@
 
 ## 빌드/실행 방법
 ```
-git clone https://github.com/nationminu/jboss-demo.git
+# git clone https://github.com/nationminu/jboss-demo.git
 
-cd jboss-demo
-docker-compose up --build
+# cd jboss-demo
+# docker-compose up --build
+# docker-compose ps
+       Name                    Command             State                            Ports
+-------------------------------------------------------------------------------------------------------------------
+jboss_database_1     docker-entrypoint.sh mysqld   Up      3306/tcp
+jboss_standalone_1   ./bin/standalone.sh           Up      8009/tcp, 0.0.0.0:8080->8080/tcp, 0.0.0.0:9990->9990/tcp
 
-curl -u admin:admin --digest -D - http://localhost:9990/management
+# curl -u admin:admin --digest -D - http://localhost:9990/management 
+HTTP/1.1 401 Unauthorized
+Connection: keep-alive
+WWW-Authenticate: Digest realm="ManagementRealm", nonce="AAAAAwAAAzTZdpvt0uiPvHo6ba1IVAMC3Cgbdo1SoFB9WsqydzZprXIhc3M=", opaque="00000000000000000000000000000000", algorithm=MD5, qop=auth
+X-Frame-Options: SAMEORIGIN
+Content-Length: 77
+Content-Type: text/html
+Date: Mon, 09 Nov 2020 02:10:42 GMT
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+Content-Type: application/json; charset=utf-8
+Content-Length: 3234
+Date: Mon, 09 Nov 2020 02:10:42 GMT
+
+{"management-major-version" : 10 ...
 ```
  
 ## Hands on 데모/실습 목차
