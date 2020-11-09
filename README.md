@@ -10,6 +10,10 @@
 
 <br/>
 
+![docker](./images/docker.png)
+
+<br/>
+
 ## 빌드/실행 방법
 ```
 # git clone https://github.com/nationminu/jboss-demo.git
