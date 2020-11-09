@@ -11,12 +11,31 @@
 
 <br/>
 
+> 실행 방법
+```
+git clone https://github.com/nationminu/jboss-demo.git
+
+cd jboss-demo
+docker-compose up --build
+
+curl -u admin:admin --digest -D - http://localhost:9990/management
+```
+
 ## Hands on 
 데모/실습 목차
 
 > [도커 사용방법](https://github.com/nationminu/docker-starter/blob/master/STARTER.md) 
 
 * [도커에 JBoss/Wildfly 설치하기](01.Install.md)
+---
+1. [사전설치](./01.Install.md#1-사전-설치)
+   1. [docker 설치](./01.Install.md#11-docker-설치)
+   2. [docker-compose 설치](./01.Install.md#12-docker-compose-설치) 
+2. [JBoss Docker 이미지 만들기](./01.Install.md#2-jboss-docker-이미지-만들기)
+   1. [Dockerfile 만들기](./01.Install.md#21-dockerfile-만들기)
+   2. [docker 빌드로 이미지 만들기](./01.Install.md#22-docker-빌드로-이미지-만들기)
+   3. [docker 컨테이너 기동하기](./01.Install.md#23-docker-컨테이너-기동하기)
+   4. [docker 컨테이너 사용법](./01.Install.md#23-docker-컨테이너-기동하기)
 
 ---
 * [JBoss 데이터소스 설정/연결 방법](02.Datasource.md)  
