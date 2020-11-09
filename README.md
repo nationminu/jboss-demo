@@ -23,9 +23,6 @@ curl -u admin:admin --digest -D - http://localhost:9990/management
 
 ## Hands on 
 데모/실습 목차
-
-> [도커 사용방법](https://github.com/nationminu/docker-starter/blob/master/STARTER.md) 
-
 * [도커에 JBoss/Wildfly 설치하기](01.Install.md)
 ---
 1. [사전설치](./01.Install.md#1-사전-설치)
@@ -66,3 +63,10 @@ curl -u admin:admin --digest -D - http://localhost:9990/management
    2. [스프링 프레임워크(Jpetstore) 배포](./03.Deployment.md#32-스프링-프레임워크jpetstore-배포)
    3. [스프링 프레임워크(Jpetstore) 테스트](./03.Deployment.md#32-스프링-프레임워크jpetstore-테스트)
 ---
+
+# Reference
+* [docker](https://www.docker.com/)
+* [docker-compose](https://docs.docker.com/compose/)
+* [openjdk](https://hub.docker.com/_/openjdk)
+* [JBoss EAP](https://www.redhat.com/en/technologies/jboss-middleware/application-platform)
+* [Wildfly](https://www.wildfly.org/)

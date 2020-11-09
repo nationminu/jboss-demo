@@ -1,5 +1,10 @@
 # Docker Build
 
+> JBoss EAP 7.3 과 upstream 버전인 wildfly 18 버전을 docker 로 빌드하는 과정입니다.
+> 1. 관리 콘솔 계정을 생성합니다. (admin/admin)
+> 2. 샘플 어플리케이션을 복사합니다. (/app/) 
+> 3. 실행을 위한 entrypoint.sh 퍄일을 복사하고 권한 설정을 진행합니다.
+
 ```
 git clone https://github.com/nationminu/jboss-demo.git
 ```
