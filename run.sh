@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-docker-compose up --build --remove-orphans
+CONFIG_FILE=docker-compose.yaml
+
+docker-compose -f ${CONFIG_FILE} up --build  --remove-orphans
