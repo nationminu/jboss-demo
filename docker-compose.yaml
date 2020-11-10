@@ -13,6 +13,7 @@ services:
     standalone:
         build: ./build
         image: "local/jboss-eap:7.3"
+        #dockerfile: Dockerfile.wildfly
         #image: "local/wildfly:18.0.1"
         ports:
             - "8080:8080"
@@ -28,6 +29,7 @@ services:
     # master:
     #     build: ./build
     #     image: "local/jboss-eap:7.3"
+    #     #dockerfile: Dockerfile.wildfly
     #     #image: "local/wildfly:18.0.1"
     #     ports:
     #         - "8080:8080"
@@ -40,6 +42,7 @@ services:
     # slave:
     #     build: ./build
     #     image: "local/jboss-eap:7.3"
+    #     #dockerfile: Dockerfile.wildfly
     #     #image: "local/wildfly:18.0.1"
     #     ports:
     #         - "18080:8080"
