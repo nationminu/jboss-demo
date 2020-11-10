@@ -59,7 +59,7 @@ Date: Mon, 09 Nov 2020 02:10:42 GMT
 ---
 
 #### 2. [JBoss 데이터소스 설정/연결 방법](02.Datasource.md)  
-1. [JDBC 모듈 생성/로딩하기](./02.Datasource.md#1-jdbc-모둘-등록하기)
+1. [JDBC 모듈 생성/로딩하기](./02.Datasource.md#1-jdbc-모듈-등록하기)
    1. [GUI를 이용한 JDBC 모듈로딩](./02.Datasource.md#11-gui-를-이용한-jdbc-모듈-로딩)
    2. [CLI을 이용한 JDBC 모듈 로딩](./02.Datasource.md#12-cli을-이용한-jdbc-모듈-로딩)
    3. [HTTP management API를 이용한 JDBC 모듈 로딩](./02.Datasource.md#13-http-management-api를-이용한-jdbc-모듈-로딩)
