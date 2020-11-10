@@ -1,6 +1,6 @@
 # JBoss/Wildfly Deployment Hands-on Demo
 
-본 실습에 사용되는 소프트웨어 버전입니다.
+본 데모/실습에 사용되는 소프트웨어 버전입니다.
 * [docker](https://docs.docker.com/get-docker/) v19.03.13
 * [docker-compose](https://docs.docker.com/compose) v1.27.4
 * [openjdk 8](https://hub.docker.com/_/openjdk) docker 이미지
