@@ -1,0 +1,46 @@
+FROM openjdk:8
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#                      J B O S S E A P  v7.3.0  I M A G E                  #
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#   
+LABEL maintainer="mwsong@rockplace.co.kr"
+
+RUN apt -y update && apt -y install vim
+
+ENV SCOUTER_HOME=/usr/local/scouter/agent.java
+ENV JBOSS_HOME=/usr/local/jboss-eap-7.3
+ENV JBOSS_MODULEPATH=${JBOSS_HOME}/modules:/app/modules.ext/
+
+COPY jboss-eap-7.3.0.zip /usr/local/
+
+RUN cd /usr/local && unzip jboss-eap-7.3.0.zip && rm -f jboss-eap-7.3.0.zip
+RUN cd ${JBOSS_HOME}/bin && ./add-user.sh admin admin 
+
+RUN mkdir -p /app
+COPY session.war /app/session.war 
+COPY jpetstore.war /app/jpetstore.war 
+COPY jpetstore-jdbc.war /app/jpetstore-jdbc.war
+COPY modules.ext /app/modules.ext
+COPY eap/*.xml /usr/local/jboss-eap-7.3/domain/configuration/
+COPY entrypoint.sh ${JBOSS_HOME}
+
+RUN chmod +x ${JBOSS_HOME}/entrypoint.sh 
+
+ADD https://github.com/scouter-project/scouter/releases/download/v2.7.1/scouter-all-2.7.1.tar.gz /usr/local/  
+RUN cd /usr/local && tar -zxf scouter-*.tar.gz && rm -f scouter-*.tar.gz 
+
+RUN echo "net_collector_ip=scouter" > ${SCOUTER_HOME}/conf/docker-scouter.conf \
+    && echo "net_collector_udp_port=6100" >> ${SCOUTER_HOME}/conf/docker-scouter.conf \
+    && echo "net_collector_tcp_port=6100" >> ${SCOUTER_HOME}/conf/docker-scouter.conf \
+    && echo "#counter_custom_jmx_enabled=true" >> ${SCOUTER_HOME}/conf/docker-scouter.conf \
+    && echo "#custom_jmx_set=ActiveCount|jboss.as.expr:data-source=MariaDBDS,subsystem=datasources,statistics=pool|ActiveCount||InUseCount|jboss.as.expr:data-source=MariaDBDS,subsystem=datasources,statistics=pool|InUseCount||IdleCount|jboss.as.expr:data-source=MariaDBDS,subsystem=datasources,statistics=pool|IdleCount" >> ${SCOUTER_HOME}/conf/docker-scouter.conf
+
+WORKDIR $JBOSS_HOME
+
+EXPOSE 8080
+EXPOSE 8009
+EXPOSE 9990
+ 
+#CMD ["./bin/standalone.sh"]
+ENTRYPOINT ["./entrypoint.sh"] 

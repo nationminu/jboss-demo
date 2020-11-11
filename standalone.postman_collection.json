@@ -1,0 +1,828 @@
+{
+	"info": {
+		"_postman_id": "ab1b789a-1235-4bdd-a3f1-31415d66af28",
+		"name": "JBoss HTTP management api - standalone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "datasources",
+			"item": [
+				{
+					"name": "Add JDBC Driver",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"add\",\n    \"address\": [\n        \"subsystem\",\n        \"datasources\",\n        \"jdbc-driver\",\n        \"mariadb\"\n    ],\n    \"driver-name\": \"mariadb\",\n    \"driver-module-name\": \"org.mariadb\",\n    \"driver-xa-datasource-class-name\": \"org.mariadb.jdbc.MySQLDataSource\",\n    \" driver-class-name\": \"org.mariadb.jdbc.Driver\",\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read JDBC Driver",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"read-resource\",\n    \"address\": [\n        \"subsystem\",\n        \"datasources\",\n        \"jdbc-driver\",\n        \"mariadb\"\n    ],\n    \"driver-name\": \"mariadb\",\n    \"driver-module-name\": \"org.mariadb\",\n    \"driver-xa-datasource-class-name\": \"org.mariadb.jdbc.MySQLDataSource\",\n    \" driver-class-name\": \"org.mariadb.jdbc.Driver\",\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Datasource",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"add\",\n    \"address\": [\n        \"subsystem\",\n        \"datasources\",\n        \"data-source\",\n        \"MariaDBDS\"\n    ],\n    \"jndi-name\": \"java:jboss/MariaDBDS\",\n    \"driver-name\": \"mariadb\",\n    \"connection-url\": \"jdbc:mariadb://database:3306/jbossdb\",\n    \"user-name\": \"jboss\",\n    \"password\": \"jboss\",\n    \"validate-on-match\": \"true\",\n    \"background-validation\": \"false\",\n    \"valid-connection-checker-class-name\": \"org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker\",\n    \"exception-sorter-class-name\": \"org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter\",\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Datasource",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"read-resource\",\n    \"address\": [\n        \"subsystem\",\n        \"datasources\",\n        \"data-source\",\n        \"MariaDBDS\"\n    ],\n    \"jndi-name\": \"java:jboss/MariaDBDS\",\n    \"driver-name\": \"mariadb\",\n    \"connection-url\": \"jdbc:mariadb://database:3306/jbossdb\",\n    \"user-name\": \"jboss\",\n    \"password\": \"jboss\",\n    \"validate-on-match\": \"true\",\n    \"background-validation\": \"false\",\n    \"valid-connection-checker-class-name\": \"org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker\",\n    \"exception-sorter-class-name\": \"org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter\",\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Connection Datasource",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"test-connection-in-pool\",\n    \"address\": [\n        \"subsystem\",\n        \"datasources\",\n        \"data-source\",\n        \"MariaDBDS\"\n    ],\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9990/management",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9990",
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove JDBC Driver",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"remove\",\n    \"address\": [\n        \"subsystem\",\n        \"datasources\",\n        \"jdbc-driver\",\n        \"mariadb\"\n    ],\n    \"driver-name\": \"mariadb\",\n    \"driver-module-name\": \"org.mariadb\",\n    \"driver-xa-datasource-class-name\": \"org.mariadb.jdbc.MySQLDataSource\",\n    \" driver-class-name\": \"org.mariadb.jdbc.Driver\",\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Datasource",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"remove\",\n    \"address\": [\n        \"subsystem\",\n        \"datasources\",\n        \"jdbc-driver\",\n        \"mariadb\"\n    ],\n    \"driver-name\": \"mariadb\",\n    \"driver-module-name\": \"org.mariadb\",\n    \"driver-xa-datasource-class-name\": \"org.mariadb.jdbc.MySQLDataSource\",\n    \" driver-class-name\": \"org.mariadb.jdbc.Driver\",\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reload JBoss",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"reload\",\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "deployments",
+			"item": [
+				{
+					"name": "Deploy jpetstore with memory db - Unmanaged",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"composite\",\n    \"address\": [],\n    \"steps\": [\n        {\n            \"operation\": \"add\",\n            \"address\": {\n                \"deployment\": \"jpetstore-mem.war\"\n            },\n            \"content\": [\n                {\n                    \"path\": \"/app/jpetstore.war\",\n                    \"archive\": \"false\"\n                }\n            ]\n        },\n        {\n            \"operation\": \"deploy\",\n            \"address\": {\n                \"deployment\": \"jpetstore-mem.war\"\n            }\n        }\n    ],\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deploy jpetstore with mariadb - Unmanaged Copy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"composite\",\n    \"address\": [],\n    \"steps\": [\n        {\n            \"operation\": \"add\",\n            \"address\": {\n                \"deployment\": \"jpetstore.war\"\n            },\n            \"content\": [\n                {\n                    \"path\": \"/app/jpetstore-jdbc.war\",\n                    \"archive\": \"true\"\n                }\n            ]\n        },\n        {\n            \"operation\": \"deploy\",\n            \"address\": {\n                \"deployment\": \"jpetstore.war\"\n            }\n        }\n    ],\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deploy sample application managed deploy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"composite\",\n    \"address\": [],\n    \"steps\": [\n        {\n            \"operation\": \"add\",\n            \"address\": {\n                \"deployment\": \"session.war\"\n            },\n            \"content\": [\n                {\n                    \"url\": \"file:/app/session.war\"\n                }\n            ]\n        },\n        {\n            \"operation\": \"deploy\",\n            \"address\": {\n                \"deployment\": \"session.war\"\n            }\n        }\n    ],\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Undeploy sample application managed deploy Copy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"composite\",\n    \"address\": [],\n    \"steps\": [\n        {\n            \"operation\": \"undeploy\",\n            \"address\": {\n                \"deployment\": \"session.war\"\n            }\n        },\n        {\n            \"operation\": \"remove\",\n            \"address\": {\n                \"deployment\": \"session.war\"\n            }\n        }\n    ],\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Undeploy jpetstore with memory db",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"composite\",\n    \"address\": [],\n    \"steps\": [\n        {\n            \"operation\": \"undeploy\",\n            \"address\": {\n                \"deployment\": \"jpetstore-mem.war\"\n            }\n        },\n        {\n            \"operation\": \"remove\",\n            \"address\": {\n                \"deployment\": \"jpetstore-mem.war\"\n            }\n        }\n    ],\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Undeploy jpetstore with mariadb",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operation\": \"composite\",\n    \"address\": [],\n    \"steps\": [\n        {\n            \"operation\": \"undeploy\",\n            \"address\": {\n                \"deployment\": \"jpetstore.war\"\n            }\n        },\n        {\n            \"operation\": \"remove\",\n            \"address\": {\n                \"deployment\": \"jpetstore.war\"\n            }\n        }\n    ],\n    \"json.pretty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/management",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"management"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "digest",
+		"digest": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "algorithm",
+				"value": "MD5",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}

@@ -10,46 +10,46 @@ services:
 #--------------------------------------------------------------------------#
 #                       S T A N D A L O N E  M O D E                       #
 #--------------------------------------------------------------------------#
-    # standalone:
-    #     build: 
-    #         context: ./build
-    #         dockerfile: Dockerfile.wildfly 
-    #     image: "local/wildfly:18.0.1"
-    #     ports:
-    #         - "8080:8080"
-    #         - "9990:9990"
-    #     environment:
-    #         - "TZ=Asia/Seoul"   
-    #         - "JAVA_OPTS=-Xms1024m -Xmx1024m -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0 -Djboss.server.default.config=standalone.xml -Djava.net.preferIPv4Stack=true"
-    #     entrypoint: ["./bin/standalone.sh"]   
-
-#--------------------------------------------------------------------------#
-#                          D O M A I N  M O D E                            #
-#--------------------------------------------------------------------------#
-    master:
+    standalone:
         build: 
             context: ./build
             dockerfile: Dockerfile.wildfly 
         image: "local/wildfly:18.0.1"
         ports:
             - "8080:8080"
-            - "8180:8180"
             - "9990:9990"
         environment:
             - "TZ=Asia/Seoul"   
-            - "JAVA_OPTS=-Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true"   
+            - "JAVA_OPTS=-Xms1024m -Xmx1024m -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0 -Djboss.server.default.config=standalone.xml -Djava.net.preferIPv4Stack=true"
+        entrypoint: ["./bin/standalone.sh"]   
 
-    slave:
-        build: 
-            context: ./build
-            dockerfile: Dockerfile.wildfly 
-        image: "local/wildfly:18.0.1"
-        ports:
-            - "18080:8080"
-            - "18180:8180" 
-        environment:
-            - "TZ=Asia/Seoul"   
-            - "JAVA_OPTS=-Xms256m -Xmx512m -Djboss.domain.master.address=master -Djboss.host.default.config=host-slave.xml -Djava.net.preferIPv4Stack=true" 
+# #--------------------------------------------------------------------------#
+# #                          D O M A I N  M O D E                            #
+# #--------------------------------------------------------------------------#
+#     master:
+#         build: 
+#             context: ./build
+#             dockerfile: Dockerfile.wildfly 
+#         image: "local/wildfly:18.0.1"
+#         ports:
+#             - "8080:8080"
+#             - "8180:8180"
+#             - "9990:9990"
+#         environment:
+#             - "TZ=Asia/Seoul"   
+#             - "JAVA_OPTS=-Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true"   
+
+#     slave:
+#         build: 
+#             context: ./build
+#             dockerfile: Dockerfile.wildfly 
+#         image: "local/wildfly:18.0.1"
+#         ports:
+#             - "18080:8080"
+#             - "18180:8180" 
+#         environment:
+#             - "TZ=Asia/Seoul"   
+#             - "JAVA_OPTS=-Xms256m -Xmx512m -Djboss.domain.master.address=master -Djboss.host.default.config=host-slave.xml -Djava.net.preferIPv4Stack=true" 
 
 #--------------------------------------------------------------------------#
 #--------------------------------------------------------------------------#

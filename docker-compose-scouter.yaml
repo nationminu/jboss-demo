@@ -1,0 +1,60 @@
+---
+version: "3.3"
+services:
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#                         J B O S S E A P  v7.3.0                          #
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+
+#--------------------------------------------------------------------------#
+#                       S T A N D A L O N E  M O D E                       #
+#--------------------------------------------------------------------------#
+    standalone:
+        build: 
+            context: ./build
+            #dockerfile: Dockerfile.wildfly.scouter
+            dockerfile: Dockerfile.eap.scouter
+        image: "local/eap-scouter:7"
+        ports:
+            - "8080:8080"
+            - "9990:9990"
+        environment:
+            - "TZ=Asia/Seoul"   
+            - "JAVA_OPTS=-Xms1024m -Xmx1024m -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0 -Djboss.server.default.config=standalone.xml -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman,scouter -Dscouter.config=/usr/local/scouter/agent.java/conf/docker-scouter.conf -javaagent:/usr/local/scouter/agent.java/scouter.agent.jar"
+        entrypoint: ["./bin/standalone.sh"]   
+
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#                   S C O U T E R  v2.10.0 / P A P E R                     #
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#   
+    scouter:
+        build: 
+            context: ./build
+            dockerfile: Dockerfile.scouter
+        image: "local/scouter:2.7.1"
+        ports:
+            - "6100:6100" 
+            - "6180:6180" 
+            - "6188:6180" 
+            - "8000:8080" 
+        environment:
+            - "TZ=Asia/Seoul"     
+
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#                             M A R I A D B  v10.5                         #
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#   
+    database:
+        image: mariadb:10.5
+        environment: 
+            TZ: "Asia/Seoul"
+            MYSQL_ROOT_PASSWORD: jboss
+            MYSQL_DATABASE: jbossdb
+            MYSQL_USER: jboss
+            MYSQL_PASSWORD: jboss
+        volumes:
+            - ./database/data:/var/lib/mysql:rw 
+            - ./database/init:/docker-entrypoint-initdb.d:rw

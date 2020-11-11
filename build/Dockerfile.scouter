@@ -1,0 +1,35 @@
+FROM openjdk:8
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#                      J B O S S E A P  v7.3.0  I M A G E                  #
+#--------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#   
+LABEL maintainer="mwsong@rockplace.co.kr"
+
+RUN apt -y update && apt -y install vim
+
+ENV SCOUTER_HOME=/usr/local/scouter/server 
+
+ADD https://github.com/scouter-project/scouter/releases/download/v2.7.1/scouter-all-2.7.1.tar.gz /usr/local/
+
+RUN cd /usr/local && tar -zxf scouter-*.tar.gz && rm -f scouter-*.tar.gz 
+
+ADD https://github.com/scouter-contrib/scouter-paper/releases/download/2.6.4/scouter-paper-v2.6.4.zip ${SCOUTER_HOME}/extweb
+RUN cd ${SCOUTER_HOME}/extweb && unzip -o scouter-paper-v2.6.4.zip && rm -f scouter-paper-v2.6.4.zip 
+
+RUN echo "net_http_server_enabled=true" > ${SCOUTER_HOME}/conf/scouter.conf \
+    && echo "net_http_api_enabled=true" >> ${SCOUTER_HOME}/conf/scouter.conf \
+    && echo "net_http_port=6180" >> ${SCOUTER_HOME}/conf/scouter.conf
+
+COPY rockPM.tar.gz /usr/local/
+RUN cd /usr/local/ && tar -zxf rockPM.tar.gz && rm -f rockPM.tar.gz
+
+COPY entrypoint-scouter.sh ${SCOUTER_HOME}/entrypoint.sh
+RUN chmod +x ${SCOUTER_HOME}/entrypoint.sh
+WORKDIR $SCOUTER_HOME
+
+EXPOSE 6100 
+EXPOSE 6180
+EXPOSE 6188
+  
+ENTRYPOINT ["sh","entrypoint.sh"] 
